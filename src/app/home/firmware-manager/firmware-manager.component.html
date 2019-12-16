@@ -1,0 +1,82 @@
+<nz-layout class="inner-layout">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>固件升级</nz-breadcrumb-item>
+    <nz-breadcrumb-item>固件管理</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <div class="bg-class bg-table" ngdeviceiTheme style="display: flex">
+    <div class="left-box">
+      <div class="tree-box">
+        <!-- <nz-tree [nzData]="nodes" nzDraggable nzBlockNode [nzExpandedKeys]="defaultExpandedKeys">
+        </nz-tree> -->
+        <ul nz-menu>
+          <li nz-menu-item *ngFor="let item of DevNamelList" (click)="showList(item)">{{item}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="table-box-2">
+      <div class="table-title">
+        <div></div>
+        <h3>上传固件</h3>
+      </div>
+      <div style="margin-bottom: 30px;">
+        <button nz-button [nzType]="'primary'" (click)="showModalMiddle()" style="margin-top: 16px">上传</button>
+      </div>
+      <div class="table-title">
+        <div></div>
+        <h3>固件列表</h3>
+      </div>
+      <nz-table nzBordered [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex" [nzData]="equipmentList">
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>设备名称</th>
+            <th>设备类型</th>
+            <th>版本</th>
+            <th>发布时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of equipmentList,let i = index">
+            <td>{{ data.UID }}</td>
+            <td>{{ data.PrgName }}</td>
+            <td>{{ data.DevName }}</td>
+            <td>{{ data.PrgVer }}</td>
+            <td>{{ data.SaveTime | date:"yyyy-MM-dd HH:mm:ss" }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+  <nz-modal nzWrapClassName="update-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="上传固件" [nzOkLoading]="isOkLoading"
+    nzOkText="{{isOkLoading? '上传中':'确定'}}" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+    <div>
+      <div class="modal-content">
+        设备型号：
+        <input nz-input style="width: 160px;" [ngClass]="{'disableSelect':isOkLoading === true}" type="text"
+          [(ngModel)]="DeviceName" disabled>
+      </div>
+      <div class="modal-content">
+       软件版本：
+        <input nz-input style="width: 160px;" [ngClass]="{'disableSelect':isOkLoading === true}" type="text"
+          [(ngModel)]="softVersion" disabled>
+      </div>
+      <div class="modal-content">
+        硬件版本：
+        <input nz-input style="width: 160px;" [ngClass]="{'disableSelect':isOkLoading === true}" type="text"
+          [(ngModel)]="hardVersion" disabled>
+      </div>
+      <div class="modal-content">
+        编译日期：
+        <input nz-input style="width: 160px;" [ngClass]="{'disableSelect':isOkLoading === true}" type="text"
+          [(ngModel)]="CompileTime" disabled>
+      </div>
+      <div class="modal-content">
+        选择文件：
+        <nz-upload *ngIf="isVisibleMiddle" nzAction="https://127.0.0.1" [nzCustomRequest]="customReq" [nzLimit]="1"
+          [nzRemove]="removeFlie" [nzDisabled]="hideUpload" (click)="showAlert()">
+          <button nz-button><i nz-icon nzType="upload"></i><span>请选择</span></button>
+        </nz-upload>
+      </div>
+    </div>
+  </nz-modal>
+</nz-layout>

@@ -1,0 +1,71 @@
+<div style="height: 100%">
+  <div class="menu" style="height: 60px;background: black">
+    <div class="group">
+      <!-- <div class="main">
+        <div class="item vehicle-setting">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/setting.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>参数设置</span></div>
+        </div>
+        <div class="item vehicle-realtime">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/realtime.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>实时数据</span></div>
+        </div>
+        <div class="item vehicle-history">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/history.dark.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>历史查询</span></div>
+        </div>
+        <div class="item vehicle-call" (click)="showContent('vehicle/image')">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/call.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>呼叫通话</span></div>
+        </div>
+        <div class="item vehicle-schedule" (click)="showContent('vehicle/schedule')">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/schedule.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>车辆调度</span></div>
+        </div>
+        <div class="item vehicle-assist">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/menu.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>辅助操作</span></div>
+        </div>
+        <div class="item vehicle-help">
+          <div class="icon">
+            <ng-cari-lottie path="assets/lottie/help.json"></ng-cari-lottie>
+          </div>
+          <div class="label"><span>帮助</span></div>
+        </div>
+      </div> -->
+      <div>
+        <h2 style="color: white;margin-left: 20px;line-height: 60px;height: 60px;">远程诊断基础信息系统</h2>
+      </div>
+    </div>
+  </div>
+  <nz-layout class="container">
+    <ul nz-menu [nzMode]="'inline'" style="width: 200px;">
+      <li nz-submenu>
+        <span title><i nz-icon type="appstore"></i>固件升级</span>
+        <ul>
+          <li nz-menu-item (click)="showContent('charts')">设备拓扑</li>
+          <li nz-menu-item (click)="showContent('manager')">固件管理</li>
+          <li nz-menu-item (click)="showContent('application')">授权管理</li>
+          <!-- <li nz-menu-item (click)="showContent('destination')">目的地管理</li> -->
+        </ul>
+      </li>
+    </ul>
+    <nz-content>
+      <div ngCariTheme>
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</div>

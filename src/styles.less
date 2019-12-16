@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
+.ant-table-thead > tr > th{
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  text-align: left;
+  background: #ccd3d9;
+  border-bottom: 1px solid #e8e8e8;
+  transition: background 0.3s ease;
+  transition-property: background;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+.ant-table-tbody {
+  background-color: #fff !important;
+  th,
+  td {
+    border-right: 1px solid hsv(0, 0, 91%) !important;
+  }
+}
+.ant-input{
+  width: auto;
+}
+.moveOut{
+  animation:mymove .3s;
+  animation-iteration-count:1;
+  animation-fill-mode:forwards;
+  /* Safari and Chrome */
+  -webkit-animation:mymove .3s;
+  -webkit-animation-iteration-count:1;
+  -webkit-animation-fill-mode:forwards;
+}
+.moveIn{
+  animation:mymove2 .4s;
+  animation-iteration-count:1;
+  animation-fill-mode:forwards;
+  /* Safari and Chrome */
+  -webkit-animation:mymove2 .4s;
+  -webkit-animation-iteration-count:1;
+  -webkit-animation-fill-mode:forwards;
+}
+@keyframes mymove
+{
+  from {left:0;}
+  to {left:-100%;}
+}
+@-webkit-keyframes mymove /* Safari and Chrome */
+{
+  from {left:0;}
+  to {left:-100%;}
+}
+@keyframes mymove2
+{
+  from {left:100%;}
+  to {left:0;}
+}
+@-webkit-keyframes mymove2 /* Safari and Chrome */
+{
+  from {left:100%;}
+  to {left:0;}
+}
+.bg-class{
+  position: relative;
+}
+.bg-table{
+  min-width: 1000px;
+}
+.table-box{
+  margin: 10px 20px;
+  display: flex;
+  width: calc(100% - 40px);
+}
+.top-btn{
+  margin: 20px 0 0 20px;
+}
+.ant-table-thead,
+.ant-table-tbody {
+  background-color: #fff !important;
+
+  th,
+  td {
+    border-right: 1px solid hsv(0, 0, 91%) !important;
+    font-size: 12px;
+    padding: 4px 9px !important;
+  }
+
+  tr:nth-child(2n) {
+    background-color: #f3f3f3;
+  }
+}

@@ -1,0 +1,164 @@
+<nz-layout class="inner-layout">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>固件升级</nz-breadcrumb-item>
+    <nz-breadcrumb-item>设备拓扑</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-content>
+    <div class="content-box">
+      <div style="display: flex">
+        <div style="width: 70%">
+          <div class="select-box" style="justify-content: space-between;">
+            <div style="display: flex;">
+              <p>设备类型：</p>
+              <select [(ngModel)]="DeviceName" class="my-select" (change)="changeDeviceName()">
+                <option *ngFor="let item of deviceTypeList" value="{{item}}" label="{{item}}">
+                </option>
+              </select>
+              <select [(ngModel)]="chooseType" class="my-select" style="margin-left: 10px;" (change)="chooseAll()">
+                <option *ngFor="let item of chooseTypeList" value="{{item.value}}" label="{{item.name}}">
+                </option>
+              </select>
+            </div>
+            <!-- <span *ngIf="DeviceName === ''">*请在设备拓扑图中选择需要升级的设备</span> -->
+          </div>
+          <div class="select-box">
+            <p>固件版本：</p>
+            <select [(ngModel)]="firmwareVersion" class="my-select" (change)="showHistoryVersionList()">
+              <option *ngFor="let item of firmwareVersionList" value="{{item}}" label="{{item}}">
+              </option>
+            </select>
+            <select [(ngModel)]="versionHistory" class="my-select" style="margin-left: 10px;">
+              <option *ngFor="let item of versionHistoryList" value="{{item.UID}}" label="{{item.SoftVer}}">
+              </option>
+            </select>
+          </div>
+          <div class="select-box">
+            <p>选择设备：</p>
+            <div class="equipment-content">
+              <div>
+                <h3 *ngFor="let item of showEquipmentList,let i = index" [ngStyle]="{'color': item.color}">
+                  {{item.key}}
+                </h3>
+              </div>
+              <div class="equipment-bottom">
+                <button nz-button nzType="primary" (click)="cleanTreeData()">清除</button>
+                <button nz-button nzType="primary" (click)="showModal()" style="margin-left: 10px;">升级</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="select-box" style="display: block" style="width: 100%;">
+          <p>正在升级的设备：</p>
+          <nz-table nzBordered [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex"
+            [nzData]="equipmentDetailList" style="width: calc(100% - 120px);">
+            <thead>
+              <tr>
+                <th>设备索引</th>
+                <th>设备类型</th>
+                <th>原始版本</th>
+                <th>目标版本</th>
+                <th>下载进度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of equipmentDetailList,let i = index">
+                <td>{{ data.Index }}</td>
+                <td>{{ data.DevNam }}</td>
+                <td>{{ data.SrcVer }}</td>
+                <td>{{ data.DstVer }}</td>
+                <td>
+                  <nz-progress [nzPercent]="data.Progress"></nz-progress>
+                </td>
+                <!-- <td><button nz-button nzType="danger" nzGhost style="height: 28px;margin: 2px auto;">终止升级</button>
+                  </td> -->
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+    </div>
+    <!-- <nz-tabset>
+      <nz-tab nzTitle="拓扑图"> -->
+    <div style="width: 100%;text-align: right;margin: 10px 0 10px 0;">
+      <button nz-button nzType="primary" (click)="refreshTree()">刷新</button>
+    </div>
+    <div class="content-box">
+      <div echarts [options]="chartOption" class="chart" id="main" style="width: 100%;min-height: 400px;"
+        (chartClick)="onChartClick($event)" (chartInit)="onChartInit($event)"></div>
+    </div>
+    <!-- </nz-tab>
+      <nz-tab nzTitle="列表">
+        <div style="display: flex;">
+          <nz-table nzBordered [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageIndex" class="list-group"
+            [nzData]="equipmentDetailList">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>设备名称（1）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let data of equipmentList,let i = index">
+                <ng-container *ngFor="let item of mapOfExpandedData[data.id],let k = index">
+                  <tr *ngIf="(item.parent && item.parent.expand) || !item.parent" (click)="showDetail1(item,i,k)"
+                    [ngClass]="{'selected-bg-color': (selected1 === i && selected2 === k)}" class="bg-color">
+                    <td [nzIndentSize]="item.level * 20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand">
+                      {{ item.id }}
+                    </td>
+                    <td>{{ item.name }}</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </nz-table>
+          <nz-table [nzData]="detailList1" [nzShowPagination]="false" class="list-group" *ngIf="choosed1 === true">
+            <thead>
+              <tr>
+                <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+                  (nzCheckedChange)="checkAll($event)"></th>
+                <th>序号</th>
+                <th>设备名称（2）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let data of detailList1,let i = index">
+                <ng-container *ngFor="let item of mapOfExpandedData2[data.id],let k = index">
+                  <tr *ngIf="(item.parent && item.parent.expand) || !item.parent" (click)="showDetail2(item,i,k)"
+                    [ngClass]="{'selected-bg-color': (selected3 === i && selected4 === k) || 
+                    (selected4 === k && !item.children && item.detail)}" class="bg-color">
+                    <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"
+                      [nzDisabled]="item.disabled"></td>
+                    <td [nzIndentSize]="item.level * 20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand">
+                      {{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </nz-table>
+          <nz-table [nzData]="detailList2" [nzShowPagination]="false" class="list-group" *ngIf="choosed2 === true">
+            <thead>
+              <tr>
+                <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+                  (nzCheckedChange)="checkAll($event)"></th>
+                <th>序号</th>
+                <th>名称（3）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of detailList2,let i = index" class="bg-color">
+                <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+                <td>{{ data.equipmentName }}</td>
+                <td>{{ data.firmwareVersion }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </nz-tab>
+    </nz-tabset> -->
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="提示" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <h4 style="color: #666;" *ngIf="alert !== ''">{{alert}}</h4>
+      <h4 style="color: #666;" *ngIf="alert === ''">确定升级{{chooseType === '1'?'全部':''}}设备吗？</h4>
+    </nz-modal>
+  </nz-content>
+</nz-layout>

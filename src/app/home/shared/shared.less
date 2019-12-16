@@ -1,0 +1,139 @@
+.moveOut{
+    animation:mymove .3s;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+    /* Safari and Chrome */
+    -webkit-animation:mymove .3s;
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode:forwards;
+  }
+  .moveIn{
+    animation:mymove2 .4s;
+    animation-iteration-count:1;
+    animation-fill-mode:forwards;
+    /* Safari and Chrome */
+    -webkit-animation:mymove2 .4s;
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-fill-mode:forwards;
+  }
+  @keyframes mymove
+  {
+    from {left:0;}
+    to {left:-100%;}
+  }
+  @-webkit-keyframes mymove /* Safari and Chrome */
+  {
+    from {left:0;}
+    to {left:-100%;}
+  }
+  @keyframes mymove2
+  {
+    from {left:100%;}
+    to {left:0;}
+  }
+  @-webkit-keyframes mymove2 /* Safari and Chrome */
+  {
+    from {left:100%;}
+    to {left:0;}
+  }
+  .bg-class{
+    position: relative;
+  }
+  .bg-table{
+    min-width: 1000px;
+  }
+  
+  .table-box{
+    margin: 10px 20px;
+    display: flex;
+    width: calc(100% - 40px);
+  }
+  .top-btn{
+    margin: 20px 0 0 20px;
+  }
+  .dark{
+    >button{
+      color: white;
+    }
+    div{
+      background: #454545 !important;
+    }
+  
+    // 下拉框箭头颜色
+    :host /deep/ .ant-select-arrow{
+      color: rgba(255,255,255,0.25) !important;
+    }
+    // 按钮disable状态
+    :host /deep/ .ant-btn-primary-disabled,
+    .ant-btn-primary.disabled,
+    .ant-btn-primary[disabled],
+    .ant-btn-primary-disabled:hover,
+    .ant-btn-primary.disabled:hover,
+    .ant-btn-primary[disabled]:hover,
+    .ant-btn-primary-disabled:focus,
+    .ant-btn-primary.disabled:focus,
+    .ant-btn-primary[disabled]:focus,
+    .ant-btn-primary-disabled:active,
+    .ant-btn-primary.disabled:active,
+    .ant-btn-primary[disabled]:active,
+    .ant-btn-primary-disabled.active,
+    .ant-btn-primary.disabled.active,
+    .ant-btn-primary[disabled].active{
+      color: rgba(0, 0, 0, 0.4) !important;
+      background-color: rgba(255, 255, 255, 0.4) !important;
+    }
+    // 列表选中状态
+    :host /deep/ .selected-bg-color{
+      background: #282828 !important;
+      background-color: #282828 !important;
+    }
+    // 列表页暂无内容字样
+    :host /deep/ .ant-empty-normal {
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+    // 列表页上一页/下一页箭头
+    :host /deep/ .ant-pagination-disabled a,
+    .ant-pagination-disabled:hover a,
+    .ant-pagination-disabled:focus a,
+    .ant-pagination-disabled .ant-pagination-item-link,
+    .ant-pagination-disabled:hover .ant-pagination-item-link,
+    .ant-pagination-disabled:focus .ant-pagination-item-link{
+      color: rgba(255, 255, 255, 0.85) !important
+    }
+    // 树形控件选中状态
+    :host /deep/ .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected{
+      background-color: #ed1d7f !important;
+    }
+    .my-select{
+      height: 32px;
+      border-radius: 4px;
+      border: 1px solid #666666;
+      background: #454545;
+      color: #d6d6d6;
+    }
+  }
+  ::ng-deep .dark .modal-class {
+    .my-select{
+      height: 32px;
+      border-radius: 4px;
+      border: 1px solid #666666 !important;
+      background: #454545;
+      color: #d6d6d6;
+    }
+  }
+  .light{
+    // 列表选中状态
+    :host /deep/ .selected-bg-color{
+      background: #ccd3d9 !important;
+      background-color: #ccd3d9 !important;
+    }
+  }
+  .my-select{
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+  }
+  .select-width{
+    width: 160px;
+  }
+  
